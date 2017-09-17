@@ -1,0 +1,196 @@
+<html>
+<head>
+<title> "Piano Board" </title>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<script type="text/javascript">
+	$(function(){
+	//$('.btn').mouseup(function(){
+	//	var value = $(this).val();
+	//	$.post("http://10.21.160.50:8082/clear",{keyTyped: value},function(result){
+	//	$('#result').append(result);
+	//});
+	//});
+		$('.btn').mousedown(function(){
+		var value = $(this).attr('value');
+		console.log(value);
+		$.post("http://10.21.160.50:8082/echo",{keyTyped: value},function(result){
+		//$('#result').append(result);
+	});
+	});
+	})
+	function post(path, params, method) {
+		method = method || "post"; // Set method to post by default if not specified.
+
+		// The rest of this code assumes you are not using a library.
+		// It can be made less wordy if you use one.
+		var form = document.createElement("form");
+		form.setAttribute("method", method);
+		form.setAttribute("action", path);
+
+		for(var key in params) {
+			if(params.hasOwnProperty(key)) {
+				var hiddenField = document.createElement("input");
+				hiddenField.setAttribute("type", "hidden");
+				hiddenField.setAttribute("name", key);
+				hiddenField.setAttribute("value", params[key]);
+
+				form.appendChild(hiddenField);
+			 }
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+	}
+		window.addEventListener("load", function() {
+
+		var i = 0;
+		var NUM_ROWS = 3;
+
+		var OnClickListener = function(event) {
+			var e = event.target.value;  
+			//post('http://localhost:8082/echo', {keyTyped: e});
+		};
+
+		var buttons = document.getElementsByTagName('input');
+		var rows = document.getElementsByClassName('horiz');
+
+		var longest_row_width = 0;
+
+
+
+		longest_row_width = 1.1 *longest_row_width;
+
+		var w = window,
+			d = document,
+			e = d.documentElement,
+			g = d.getElementsByTagName('body')[0],
+			x = w.innerWidth || e.clientWidth || g.clientWidth,
+			y = w.innerHeight|| e.clientHeight|| g.clientHeight,
+			row_height = Math.floor(y / NUM_ROWS),
+			width_multiplier = x / longest_row_width;
+
+
+		for (i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener("click", "return false;");
+		}    
+		});
+</script>
+
+<style>
+
+.half {
+	background-color: rgb(50,50,50);
+    border: solid white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; 
+	position: fixed;
+	height: 50%;
+	width: 4%;
+}
+
+.half:active {
+	background-color: rgb(0,0,0);
+    border: solid white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; 
+	position: fixed;
+	height: 50%;
+	width: 4%;
+}
+
+.whole {
+	background-color: rgb(240,240,240);
+    border: solid white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; 
+	position: fixed;
+	height: 100%;
+	width: 5.5%;
+}
+
+.whole:active {
+	background-color: rgb(220,220,220);
+    border: white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px; 
+	position: fixed;
+	height: 100%;
+	width: 5.5%;
+}
+
+#half1 {left: 6%;}
+#half2 {left: 14%;}
+#half3 {left: 26%;}
+#half4 {left: 34%;}
+#half5 {left: 42%;}
+#half6 {left: 54%;}
+#half7 {left: 62%;}
+#half8 {left: 74%;}
+#half9 {left: 82%;}
+#half10 {left: 90%;}
+
+#whole0 {left: 1%;}
+#whole1 {left: 8%;}
+#whole2 {left: 15%;}
+#whole3 {left: 22%;}
+#whole4 {left: 29%;}
+#whole5 {left: 36%;}
+#whole6 {left: 43%;}
+#whole7 {left: 50%;}
+#whole8 {left: 57%;}
+#whole9 {left: 64%;}
+#whole10 {left: 71%;}
+#whole11 {left: 78%;}
+#whole12 {left: 85%;}
+#whole13 {left: 92%;}
+</style>
+</head>
+
+
+<body>
+
+<div class="btn whole" value="q" id = "whole0"> </div>
+<div class="btn whole" value="w" id = "whole1"> </div>
+<div class="btn whole" value="e" id= "whole2"> </div>
+<div class="btn whole" value="r" id= "whole3"> </div>
+<div class="btn whole" value="t" id= "whole4"> </div>
+<div class="btn whole" value="y" id= "whole5"> </div>
+<div class="btn whole" value="u" id= "whole6"> </div>
+<div class="btn whole" value="i" id= "whole7"> </div>
+<div class="btn whole" value="o" id= "whole8"> </div>
+<div class="btn whole" value="p" id= "whole9"> </div>
+<div class="btn whole" value="[" id= "whole10"> </div>
+<div class="btn whole" value="]" id= "whole11"> </div>
+<div class="btn whole" value="z" id= "whole12"> </div>
+<div class="btn whole" value="x" id= "whole13"> </div>
+
+<div class="btn half" value="2" id= "half1"> </div>
+<div class="btn half" value="3" id= "half2"> </div>
+<div class="btn half" value="5" id= "half3"> </div>
+<div class="btn half" value="6" id= "half4"> </div>
+<div class="btn half" value="7" id= "half5"> </div>
+<div class="btn half" value="9" id= "half6"> </div>
+<div class="btn half" value="0" id= "half7"> </div>
+<div class="btn half" value="-" id= "half8"> </div>
+<div class="btn half" value="a" id= "half9"> </div>
+<div class="btn half" value="s" id= "half11"> </div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+<head>
+	<title>ORK : Online Remote Keyboard</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="contextMenu.min.js"></script>
+	<script type="text/javascript">
+		var menuTrgr=$('#menuTrigger');
+		 
+		menuTrgr.contextMenu('menu','#demoMenu',{
+			displayAround:'trigger',
+			horAdjust:-menuTrgr.width()
+		});
+	</script> 
+</head>
+<body>
+	<div id="menuWrapper"><div id="menuTrigger" ></div>
+	<ul id="demoMenu">
+	<li>Intro</li>
+	<li>Demo</li>
+	<li>Documentation</li>
+	</ul>
+	</div>
+
+</body>
+</html>

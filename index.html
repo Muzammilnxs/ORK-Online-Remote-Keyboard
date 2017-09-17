@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>The Board</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+	<script type="text/javascript">
+	$(function(){
+	//$('.btn').mouseup(function(){
+	//	var value = $(this).val();
+	//	$.post("http://10.21.160.50:8082/clear",{keyTyped: value},function(result){
+	//	$('#result').append(result);
+	//});
+	//});
+		$('.btn').mousedown(function(){
+		var value = $(this).val();
+		$.post("http://10.21.160.50:8082/echo",{keyTyped: value},function(result){
+		$('#result').append(result);
+	});
+	});
+	})
+	function post(path, params, method) {
+		method = method || "post"; // Set method to post by default if not specified.
+
+		// The rest of this code assumes you are not using a library.
+		// It can be made less wordy if you use one.
+		var form = document.createElement("form");
+		form.setAttribute("method", method);
+		form.setAttribute("action", path);
+
+		for(var key in params) {
+			if(params.hasOwnProperty(key)) {
+				var hiddenField = document.createElement("input");
+				hiddenField.setAttribute("type", "hidden");
+				hiddenField.setAttribute("name", key);
+				hiddenField.setAttribute("value", params[key]);
+
+				form.appendChild(hiddenField);
+			 }
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+	}
+		window.addEventListener("load", function() {
+
+		var i = 0;
+		var NUM_ROWS = 3;
+
+		var OnClickListener = function(event) {
+			var e = event.target.value;  
+			//post('http://localhost:8082/echo', {keyTyped: e});
+		};
+
+		var buttons = document.getElementsByTagName('input');
+		var rows = document.getElementsByClassName('horiz');
+
+		var longest_row_width = 0;
+
+		for (i = 0; i < rows.length; ++i) {
+			var buttons_in_row = rows[i].getElementsByTagName('input');
+			var sum = 0;
+			for (var j = 0; j < buttons_in_row.length; ++j) {
+			sum += buttons_in_row[j].offsetWidth;
+			}
+			if (longest_row_width < sum) {
+			longest_row_width = sum;
+			}
+		}
+
+		longest_row_width = 1.1 *longest_row_width;
+
+		var w = window,
+			d = document,
+			e = d.documentElement,
+			g = d.getElementsByTagName('body')[0],
+			x = w.innerWidth || e.clientWidth || g.clientWidth,
+			y = w.innerHeight|| e.clientHeight|| g.clientHeight,
+			row_height = Math.floor(y / NUM_ROWS),
+			width_multiplier = x / longest_row_width;
+
+		for (i = 0; i < rows.length; i++) {
+			rows[i].style.height = row_height + "px";
+		}
+
+		for (i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener("click", "return false;");
+			buttons[i].style.height = row_height + "px";
+			buttons[i].style.width = Math.floor((width_multiplier * buttons[i].offsetWidth)) + "px";
+		}    
+		});
+
+	</script>
+  </head>
+  
+  <body>
+    <div class="vert">
+      <div class="horiz">
+	<input class="btn" type="button" value="tab"/>
+	<input class="btn"type="button" value="q"/>
+	<input class="btn" type="button" value="w"/>
+	<input class="btn" type="button" value="e"/>
+	<input class="btn" type="button" value="r"/>
+	<input class="btn" type="button" value="t"/>
+	<input class="btn" type="button" value="y"/>
+	<input class="btn" type="button" value="u"/>
+	<input class="btn" type="button" value="i"/>
+	<input class="btn" type="button" value="o"/>
+	<input class="btn" type="button" value="p"/>
+	<input class="btn" type="button" value="{"/>
+	<input class="btn" type="button" value="}"/>
+	<input class="btn" type="button" value="|"/>
+	<input class="btn" type="button" value="backspace" />
+      </div>
+      <div class="horiz">
+	<input class="btn" type="button" value="capslock"/>
+	<input class="btn" type="button" value="a"/>
+	<input class="btn" type="button" value="s"/>
+	<input class="btn" type="button" value="d"/>
+	<input class="btn" type="button" value="f" />
+	<input class="btn" type="button" value="g" />
+	<input class="btn" type="button" value="h" />
+	<input class="btn" type="button" value="j" />
+	<input class="btn" type="button" value="k" />
+	<input class="btn" type="button" value="l" />
+	<input class="btn" type="button" value=":" />
+	<input class="btn" type="button" value="'" />
+	<input class="btn" type="button" value="enter" />
+      </div>
+      <div class="horiz">
+	<input class="btn" type="button" value="shift"/>
+	<input class="btn" type="button" value="z"/>
+	<input class="btn" type="button" value="x"/>
+	<input class="btn" type="button" value="c"/>
+	<input class="btn" type="button" value="v"/>
+	<input class="btn" type="button" value="b"/>
+	<input class="btn" type="button" value="n"/>
+	<input class="btn" type="button" value="m"/>
+	<input class="btn" type="button" value="<"/>
+	<input class="btn" type="button" value=">"/>
+	<input class="btn" type="button" value="?"/>
+	<input class="btn" type="button" value="shift"/>
+      </div>
+    </div>
+	<div id="result"></div>
+  </body>
+
+
+</html>
